@@ -3,6 +3,7 @@
 Compare LLM outputs with word-level and line-level diffs, ANSI-colored terminal output, and AI-specific metrics.
 
 [![npm version](https://img.shields.io/npm/v/ai-diff.svg)](https://www.npmjs.com/package/ai-diff)
+[![npm downloads](https://img.shields.io/npm/dt/ai-diff.svg)](https://www.npmjs.com/package/ai-diff)
 [![license](https://img.shields.io/npm/l/ai-diff.svg)](https://github.com/SiluPanda/ai-diff/blob/master/LICENSE)
 [![node](https://img.shields.io/node/v/ai-diff.svg)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
