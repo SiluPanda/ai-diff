@@ -70,7 +70,7 @@ function lcsTable(a: string[], b: string[]): number[][] {
 /**
  * Backtrack the LCS table to produce diff segments.
  */
-function backtrackLCS(a: string[], b: string[], dp: number[][]): DiffSegment[] {
+function backtrackLCS(a: string[], b: string[], dp: number[][], joiner: string = ''): DiffSegment[] {
   const segments: DiffSegment[] = [];
   let i = a.length;
   let j = b.length;
@@ -97,7 +97,7 @@ function backtrackLCS(a: string[], b: string[], dp: number[][]): DiffSegment[] {
   // Merge consecutive segments of the same type
   for (const seg of reversed) {
     if (segments.length > 0 && segments[segments.length - 1].type === seg.type) {
-      segments[segments.length - 1].text += seg.text;
+      segments[segments.length - 1].text += joiner + seg.text;
     } else {
       segments.push({ ...seg });
     }
@@ -141,13 +141,9 @@ export function diffLines(textA: string, textB: string): DiffSegment[] {
   if (linesA.length === 0 && linesB.length === 0) return [];
 
   const dp = lcsTable(linesA, linesB);
-  const rawSegments = backtrackLCS(linesA, linesB, dp);
+  const rawSegments = backtrackLCS(linesA, linesB, dp, '\n');
 
-  // Join lines back with newlines within each segment
-  return rawSegments.map(seg => ({
-    ...seg,
-    text: seg.text,
-  }));
+  return rawSegments;
 }
 
 /**
@@ -161,7 +157,7 @@ export function computeHunks(textA: string, textB: string, contextLines: number 
   const linesB = textB.split('\n');
 
   const dp = lcsTable(linesA, linesB);
-  const lineSegments = backtrackLCS(linesA, linesB, dp);
+  const lineSegments = backtrackLCS(linesA, linesB, dp, '\n');
 
   // Expand line segments into individual line entries with line numbers
   interface LineDiff {
@@ -234,8 +230,8 @@ export function computeHunks(textA: string, textB: string, contextLines: number 
       segments.push({ text: ld.text, type: ld.type });
 
       if (i === start) {
-        hunkLineA = ld.lineA || ld.lineA;
-        hunkLineB = ld.lineB || ld.lineB;
+        hunkLineA = ld.lineA;
+        hunkLineB = ld.lineB;
         // For added lines at the start, lineA is 0
         if (ld.type === 'added') {
           // Look backwards to find a valid lineA

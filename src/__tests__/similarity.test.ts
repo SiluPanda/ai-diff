@@ -190,8 +190,8 @@ describe('embeddingCosineSimilarity', () => {
     expect(embeddingCosineSimilarity([0, 0], [0, 0])).toBe(0);
   });
 
-  it('returns 0 for empty vectors', () => {
-    expect(embeddingCosineSimilarity([], [])).toBe(0);
+  it('returns 1 for empty vectors', () => {
+    expect(embeddingCosineSimilarity([], [])).toBe(1);
   });
 });
 

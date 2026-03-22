@@ -102,7 +102,7 @@ export function embeddingCosineSimilarity(a: number[], b: number[]): number {
   if (a.length !== b.length) {
     throw new Error(`Embedding vectors must have the same length: ${a.length} vs ${b.length}`);
   }
-  if (a.length === 0) return 0;
+  if (a.length === 0) return 1;
 
   let dotProduct = 0;
   let normA = 0;
