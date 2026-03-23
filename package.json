@@ -1,6 +1,6 @@
 {
-  "name": "ai-diff",
-  "version": "0.2.2",
+  "name": "@silupanda/ai-diff",
+  "version": "0.2.3",
   "description": "Compare LLM responses across models with semantic diffs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
